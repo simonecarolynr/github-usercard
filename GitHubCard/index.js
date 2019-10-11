@@ -13,7 +13,16 @@
 /* Step 4: Pass the data received from Github into your function, 
            create a new component and add it to the DOM as a child of .cards
 */
+const cards = document.querySelector('.cards');
 
+axios
+.get('https://api.github.com/users/simonecarolynr')
+.then((response) => {
+  cards.appendChild(githubUser(response.data));
+})
+.catch((err) => {
+  console.log(err);
+})
 /* Step 5: Now that you have your own card getting added to the DOM, either 
           follow this link in your browser https://api.github.com/users/<Your github name>/followers 
           , manually find some other users' github handles, or use the list found 
@@ -45,6 +54,56 @@ const followersArray = [];
 </div>
 
 */
+
+function githubUser (Object) {
+  //creating each element
+  userCard = document.createElement('div');
+  profilePic = document.createElement('img');
+  cardInfo = document.createElement('div');
+  name = document.createElement('h3');
+  username = document.createElement('p');
+  location = document.createElement('p');
+  profile = document.createElement('p');
+  linkToPage = document.createElement('a');
+  followerCount = document.createElement('p');
+  followingCount = document.createElement('p');
+  userBio = document.createElement('p');
+
+  //setting class attributes
+  userCard.classList.add('card');
+  cardInfo.classList.add('card-info');
+  name.classList.add('name');
+  username.classList.add('username');
+
+  //setting text content
+  name.textContent = Object.name;
+  username.textContent = Object.login;
+  location.textContent = `Location: ${Object.location}`;
+  profilePic.textContent = 'Profile: ';
+  followerCount.textContent = `Followers: ${Object.followers}`;
+  followingCount.textContent = `Following: ${Object.following}`;
+  userBio.textContent = `Bio: ${Object.bio}`;
+  linkToPage.textContent = Object.html_url;
+
+  //setting attributes
+  profilePic.src = Object.avatar_url;
+  linkToPage.href = Object.html_url;
+
+  userCard.appendChild(profilePic);
+  userCard.appendChild(cardInfo);
+  cardInfo.appendChild(name);
+  cardInfo.appendChild(username);
+  cardInfo.appendChild(location);
+  cardInfo.appendChild(profile);
+  profile.appendChild(linkToPage);
+  cardInfo.appendChild(followerCount);
+  cardInfo.appendChild(followingCount);
+  cardInfo.appendChild(userBio);
+
+  return userCard;
+}
+
+
 
 /* List of LS Instructors Github username's: 
   tetondan
