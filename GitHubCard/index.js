@@ -79,7 +79,7 @@ function githubUser (Object) {
   name.textContent = Object.name;
   username.textContent = Object.login;
   location.textContent = `Location: ${Object.location}`;
-  profilePic.textContent = 'Profile: ';
+  profile.textContent = 'Profile: ';
   followerCount.textContent = `Followers: ${Object.followers}`;
   followingCount.textContent = `Following: ${Object.following}`;
   userBio.textContent = `Bio: ${Object.bio}`;
